@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Checkbox } from './ui/checkbox';
 import { Label } from './ui/label';
+import { Slider } from './ui/slider';
 import { brands, priceRanges } from '../data/watches';
 
 interface FiltersPanelProps {
@@ -16,6 +17,12 @@ const FiltersPanel: React.FC<FiltersPanelProps> = ({
   priceRange,
   setPriceRange
 }) => {
+  const [sliderValue, setSliderValue] = useState<[number, number]>([priceRanges.min, priceRanges.max]);
+
+  useEffect(() => {
+    setPriceRange({ min: sliderValue[0], max: sliderValue[1] });
+  }, [sliderValue, setPriceRange]);
+
   const handleBrandChange = (brand: string) => {
     setSelectedBrands(prev => {
       if (prev.includes(brand)) {
@@ -24,10 +31,6 @@ const FiltersPanel: React.FC<FiltersPanelProps> = ({
         return [...prev, brand];
       }
     });
-  };
-
-  const handlePriceRangeChange = (min: number, max: number) => {
-    setPriceRange({ min, max });
   };
 
   return (
@@ -57,22 +60,20 @@ const FiltersPanel: React.FC<FiltersPanelProps> = ({
       
       <div>
         <h3 className="font-semibold mb-3">Цена</h3>
-        <div className="space-y-2">
-          {priceRanges.map(range => (
-            <div key={range.id} className="flex items-center space-x-2">
-              <Checkbox 
-                id={`price-${range.id}`} 
-                checked={priceRange.min === range.min && priceRange.max === range.max}
-                onCheckedChange={() => handlePriceRangeChange(range.min, range.max)}
-              />
-              <Label 
-                htmlFor={`price-${range.id}`}
-                className="text-sm cursor-pointer"
-              >
-                {range.label}
-              </Label>
-            </div>
-          ))}
+        <div className="px-2">
+          <Slider
+            defaultValue={[priceRanges.min, priceRanges.max]}
+            max={priceRanges.max}
+            min={priceRanges.min}
+            step={100}
+            value={sliderValue}
+            onValueChange={setSliderValue}
+            className="my-4"
+          />
+          <div className="flex justify-between text-sm">
+            <span>{sliderValue[0]} ₽</span>
+            <span>{sliderValue[1]} ₽</span>
+          </div>
         </div>
       </div>
     </div>

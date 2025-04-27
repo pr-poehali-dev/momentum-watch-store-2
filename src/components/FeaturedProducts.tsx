@@ -5,8 +5,18 @@ import ProductCard from './ProductCard';
 import { watches } from '../data/watches';
 
 const FeaturedProducts: React.FC = () => {
-  // Выбираем 3 популярных товара
-  const popularProducts = watches.slice(0, 3);
+  // Находим товар со скидкой
+  const discountProduct = watches.find(product => product.discount);
+  
+  // Выбираем 2 других популярных товара, исключая товар со скидкой
+  const otherProducts = watches
+    .filter(product => !product.discount)
+    .slice(0, discountProduct ? 2 : 3);
+  
+  // Комбинируем товары для отображения, ставя товар со скидкой первым
+  const displayProducts = discountProduct 
+    ? [discountProduct, ...otherProducts] 
+    : otherProducts;
   
   return (
     <section className="py-16 bg-gray-50">
@@ -19,7 +29,7 @@ const FeaturedProducts: React.FC = () => {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {popularProducts.map(product => (
+          {displayProducts.map(product => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>

@@ -1,15 +1,16 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Logo: React.FC = () => {
   return (
-    <div className="flex flex-col items-center justify-center mb-8">
-      <div className="logo-reflection wave-animation">
-        <div className="text-6xl md:text-8xl font-bold font-dior tracking-wider text-black">
-          МММ
+    <Link to="/" className="inline-block">
+      <div className="text-center">
+        <div className="logo-reflection wave-animation">
+          <div className="text-5xl md:text-6xl font-bold tracking-widest">MMM</div>
         </div>
+        <div className="mt-2 text-lg md:text-xl font-semibold tracking-wide">MOMENTUM</div>
       </div>
-      <div className="text-2xl mt-2 tracking-widest font-dior">MOMENTUM</div>
-    </div>
+    </Link>
   );
 };
 

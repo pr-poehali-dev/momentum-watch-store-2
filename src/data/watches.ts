@@ -5,6 +5,7 @@ export interface Product {
   price: number;
   image: string;
   description: string;
+  discount?: number;
 }
 
 export const watches: Product[] = [
@@ -14,7 +15,8 @@ export const watches: Product[] = [
     brand: "Casio",
     price: 1500,
     image: "https://cdn.poehali.dev/files/8332108b-f3a3-4d09-85d7-2e34f28fda20.jpg",
-    description: "Классические стальные часы Casio с серебристым браслетом и белым циферблатом. Оснащены кварцевым механизмом и имеют функцию отображения даты."
+    description: "Классические стальные часы Casio с серебристым браслетом и белым циферблатом. Оснащены кварцевым механизмом и имеют функцию отображения даты.",
+    discount: 20
   },
   {
     id: 2, 
@@ -47,14 +49,52 @@ export const watches: Product[] = [
     price: 549,
     image: "https://cdn.poehali.dev/files/556f9792-4b14-4dce-8c98-23c976a963f5.jpg",
     description: "Культовые цифровые часы Casio с металлическим браслетом. Включают будильник, хронограф и подсветку."
+  },
+  {
+    id: 6,
+    name: "Casio Blue Square",
+    brand: "Casio",
+    price: 1300,
+    image: "https://cdn.poehali.dev/files/a62a0043-9efc-4c54-89f4-ba921d470656.jpg",
+    description: "Стильные часы Casio с синим циферблатом и черным стальным браслетом. Идеальное сочетание современного дизайна и классической элегантности."
+  },
+  {
+    id: 7,
+    name: "Patek Philippe Nautilus",
+    brand: "Patek Philippe",
+    price: 1700,
+    image: "https://cdn.poehali.dev/files/22208fb1-f3c3-4fab-b44a-6174add2f252.jpg",
+    description: "Легендарные часы Patek Philippe Nautilus с белым циферблатом и стальным браслетом. Изысканная модель, которая никогда не выходит из моды."
+  },
+  {
+    id: 8,
+    name: "Hublot Classic Fusion",
+    brand: "Hublot",
+    price: 1500,
+    image: "https://cdn.poehali.dev/files/204a9414-5c76-4435-bf65-092dccc5a0c2.jpg",
+    description: "Элегантные спортивные часы Hublot с черным циферблатом и каучуковым ремешком. Сочетание классики и современности."
+  },
+  {
+    id: 9,
+    name: "Rolex Datejust Gold",
+    brand: "Rolex",
+    price: 1500,
+    image: "https://cdn.poehali.dev/files/ca975d54-0ed6-4de8-ad51-213be109c8b3.jpg",
+    description: "Золотые часы Rolex Datejust с белым циферблатом и золотым браслетом. Символ статуса и престижа."
+  },
+  {
+    id: 10,
+    name: "Tissot 1853 Automatic",
+    brand: "Tissot",
+    price: 2300,
+    image: "https://cdn.poehali.dev/files/3900ca4f-cec3-44bb-ba51-b6f2d48cc8d6.jpg",
+    description: "Элегантные часы Tissot с автоматическим механизмом и черным циферблатом. Классический дизайн для повседневного использования."
   }
 ];
 
 export const brands = [...new Set(watches.map(watch => watch.brand))];
 
-export const priceRanges = [
-  { id: 1, label: "До 1000 ₽", min: 0, max: 1000 },
-  { id: 2, label: "1000 ₽ - 2000 ₽", min: 1000, max: 2000 },
-  { id: 3, label: "2000 ₽ - 3000 ₽", min: 2000, max: 3000 },
-  { id: 4, label: "Свыше 3000 ₽", min: 3000, max: Infinity }
-];
+export const priceRanges = {
+  min: Math.min(...watches.map(watch => watch.price)),
+  max: Math.max(...watches.map(watch => watch.price))
+};
